@@ -1,0 +1,25 @@
+vmd -dispdev text -e script.tcl # run .tcl in tk console directly
+namd3 wat_min01.conf > wat_min01.log & tail -f wat_min01.log
+source /path/to/your/script.tcl # run .tcl in tk console
+
+#run with 4 cores
+namd3 +p4 wat_min01.conf > wat_min01.log & tail -f wat_min01.log
+
+
+###################################################################
+namd3 +p4 +setcpuaffinity +devices 0 hcol_pull1.conf > hcol_pull1.log & tail -f hcol_pull1.log
+
+Explanation:
+
+    +p4: Specifies 4 CPU cores for the simulation.
+    +setcpuaffinity: Binds the threads to specific cores for better performance.
+    +devices 0: Tells NAMD to use GPU 0 (first GPU). If you have multiple GPUs, specify the device index (e.g., +devices 0,1 for using two GPUs).
+    hcol_pull1.conf: Your configuration file.
+    hcol_pull1.log: Log file to monitor progress.
+#############################################################################
+
+add to .conf
+# GPU Acceleration
+cuda on
+
+###################
